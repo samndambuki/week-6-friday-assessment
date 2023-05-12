@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { registerUser } from "../controllers/usersContoller";
+import { registerUser, resetPassword } from "../controllers/usersContoller";
 
 const userRoutes = Router()
 
 
 userRoutes.post('/',registerUser)
+userRoutes.post('/reset-password', resetPassword);
 userRoutes.get('/user',)
 userRoutes.get('/:id',)
 userRoutes.put('/:id',)
