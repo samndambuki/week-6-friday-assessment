@@ -1,8 +1,10 @@
-POST http://localhost:6000
+POST http://localhost:6000/users
 Content-Type: application/json
 
 {
-   
+   "name":"Samuel Ndambuki",
+   "email":"sam.ndambuki08@gmail.com",
+   "password":"N10234424008s"
 }
 
 
