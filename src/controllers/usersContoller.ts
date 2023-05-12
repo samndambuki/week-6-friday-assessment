@@ -74,7 +74,6 @@ export const resetPassword = async (req: ResetPasswordRequest, res: Response) =>
   try {
     const { email, password } = req.body;
 
-    // Validate request body using Joi
     const schema = Joi.object({
       email: Joi.string().email().required(),
       password: Joi.string().min(8).required(),
@@ -87,7 +86,6 @@ export const resetPassword = async (req: ResetPasswordRequest, res: Response) =>
 
     const pool = await mssql.connect(sqlConfig);
 
-    // Check if the user exists in the database
     const existingUser = await pool
       .request()
       .input('email', mssql.VarChar, email)
@@ -97,10 +95,8 @@ export const resetPassword = async (req: ResetPasswordRequest, res: Response) =>
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Encrypt the new password using bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Update the user's password
     await pool
       .request()
       .input('email', mssql.VarChar, email)
@@ -116,8 +112,6 @@ export const resetPassword = async (req: ResetPasswordRequest, res: Response) =>
 export const searchUsersByName = async (req: Request, res: Response) => {
   try {
     const { name } = req.query;
-
-    // Validate the name query parameter
 
     if (!name || typeof name !== 'string') {
       return res.status(400).json({ error: 'Invalid name parameter' });
