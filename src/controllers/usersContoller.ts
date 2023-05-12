@@ -37,6 +37,16 @@ export const registerUser = async (req:ExtendedRequest,res:Response) => {
 
     const pool = await mssql.connect(sqlConfig);
 
+     // Check if the email already exists in the database
+     const existingUser = await pool
+     .request()
+     .input('email', mssql.VarChar, email)
+     .execute('GetUsers');
+
+   if (existingUser.recordset.length > 0) {
+     return res.status(409).json({ error: 'Email already exists' });
+   }
+
     await pool
       .request()
       .input('id', mssql.VarChar, id)

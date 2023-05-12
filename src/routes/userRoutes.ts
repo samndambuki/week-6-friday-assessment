@@ -5,7 +5,7 @@ const userRoutes = Router()
 
 
 userRoutes.post('/',registerUser)
-userRoutes.get('/product',)
+userRoutes.get('/user',)
 userRoutes.get('/:id',)
 userRoutes.put('/:id',)
 userRoutes.delete('/:id',)
